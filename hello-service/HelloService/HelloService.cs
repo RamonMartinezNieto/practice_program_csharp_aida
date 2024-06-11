@@ -18,7 +18,6 @@ public class HelloService
         if (IsNight(hour))
         {
             _greetings.SayGoodNight();
-            return;
         }
 
         if (IsAfternoon(hour))
@@ -39,7 +38,7 @@ public class HelloService
 
     private static bool IsAfternoon(int hour)
     {
-        return hour > 12;
+        return hour > 12 && hour <= 20;
     }
 
     private static bool IsNight(int hour)
