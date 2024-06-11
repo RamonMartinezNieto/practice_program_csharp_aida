@@ -15,9 +15,7 @@ public class HelloServiceTest
         _notifier = Substitute.For<Notifier>();
         _dateProvider = Substitute.For<DateProvider>();
 
-        Greetings greetings = new(_notifier);
-        Schedule schedule = new(_dateProvider);
-        _helloService = new(greetings, schedule);
+        _helloService = new(_notifier, _dateProvider);
     }
 
     [TestCase(8)]

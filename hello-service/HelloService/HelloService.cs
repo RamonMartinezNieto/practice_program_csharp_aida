@@ -5,10 +5,10 @@ public class HelloService
     private readonly Greetings _greetings;
     private readonly Schedule _schedule;
 
-    public HelloService(Greetings greetings, Schedule schedule)
+    public HelloService(Notifier notifier, DateProvider dateProvider)
     {
-        _greetings = greetings;
-        _schedule = schedule;
+        _greetings = new Greetings(notifier);
+        _schedule = new Schedule(dateProvider);
 
     }
 
