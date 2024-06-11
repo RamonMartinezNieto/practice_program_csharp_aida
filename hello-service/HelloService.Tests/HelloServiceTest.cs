@@ -28,6 +28,8 @@ public class HelloServiceTest
         helloService.Hello();
 
         _greetings.Received(1).SayGoodMorning();
+        _greetings.Received(0).SayGoodAfternoon();
+        _greetings.Received(0).SayGoodNight();
     }
 
 
@@ -43,6 +45,8 @@ public class HelloServiceTest
         helloService.Hello();
 
         _greetings.Received(1).SayGoodNight();
+        _greetings.Received(0).SayGoodMorning();
+        _greetings.Received(0).SayGoodAfternoon();
     }
 
     [TestCase(13)]
