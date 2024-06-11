@@ -5,7 +5,6 @@ namespace Hello.Tests;
 
 public class HelloServiceTest
 {
-    private Greetings _greetings;
     private DateProvider _dateProvider;
     private Notifier _notifier;
     private HelloService _helloService;
@@ -14,10 +13,11 @@ public class HelloServiceTest
     public void SetUp()
     {
         _notifier = Substitute.For<Notifier>();
-        _greetings = new Greetings(_notifier);
         _dateProvider = Substitute.For<DateProvider>();
 
-        _helloService = new(_greetings, new Schedule(_dateProvider));
+        Greetings greetings = new(_notifier);
+        Schedule schedule = new(_dateProvider);
+        _helloService = new(greetings, schedule);
     }
 
     [TestCase(8)]
