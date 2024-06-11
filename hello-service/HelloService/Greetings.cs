@@ -2,6 +2,10 @@ namespace Hello;
 
 public class Greetings
 {
+    private const string GoodMorning = "Buenos días!";
+    private const string GoodNight = "Buenas noches!";
+    private const string GoodAfternoon = "Buenas tardes!";
+
     private readonly Notifier _notifier;
 
     public Greetings(Notifier notifier)
@@ -11,16 +15,16 @@ public class Greetings
 
     public void SayGoodMorning()
     {
-        _notifier.Notify("Buenos días!");
+        _notifier.Notify(GoodMorning);
     }
 
     public void SayGoodNight()
     {
-        _notifier.Notify("Buenas noches!");
+        _notifier.Notify(GoodNight);
     }
 
     public void SayGoodAfternoon()
     {
-        _notifier.Notify("Buenas tardes!");
+        _notifier.Notify(GoodAfternoon);
     }
 }
