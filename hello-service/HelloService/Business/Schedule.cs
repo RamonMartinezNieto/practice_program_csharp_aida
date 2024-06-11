@@ -5,7 +5,7 @@ namespace Hello.Business;
 public class Schedule
 {
     private readonly int _hour;
-    private readonly DateTime _dateTime;
+    private readonly TimeOnly _timeOnly;
 
     private readonly TimeBetween _morning;
     private readonly TimeBetween _afternoon;
@@ -13,7 +13,7 @@ public class Schedule
     public Schedule(DateProvider dateProvider)
     {
         _hour = dateProvider.GetDate().Hour;
-        _dateTime = dateProvider.GetDate();
+        _timeOnly = TimeOnly.FromDateTime(dateProvider.GetDate());
 
         _morning = new(TimeOnlyWith(5), TimeOnlyWith(13));
         _afternoon = new(TimeOnlyWith(12), TimeOnlyWith(21));
@@ -21,13 +21,12 @@ public class Schedule
 
     public bool ItIsMorning()
     {
-        return _morning.IsInTime(TimeOnly.FromDateTime(_dateTime));
+        return _morning.IsInTime(_timeOnly);
     }
-
 
     public bool ItIsAfternoon()
     {
-        return _afternoon.IsInTime(TimeOnly.FromDateTime(_dateTime));
+        return _afternoon.IsInTime(_timeOnly);
     }
 
     public bool ItIsNight()
