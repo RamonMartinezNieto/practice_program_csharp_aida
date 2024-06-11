@@ -13,20 +13,23 @@ public class Schedule
 
     public bool ItIsMorning()
     {
-        var from = _hour >= 6;
-        var to = _hour <= 12;
+        var from = _hour > 5;
+        var to = _hour < 13;
 
         return from && to;
     }
 
     public bool ItIsAfternoon()
     {
-        return _hour > 12 && _hour <= 20;
+        var from = _hour > 12;
+        var to = _hour < 21;
+        return from && to;
     }
 
     public bool ItIsNight()
     {
-        return _hour < 6 || _hour > 20;
+        var from = _hour > 20;
+        var to = _hour < 6;
+        return from || to;
     }
-
 }
