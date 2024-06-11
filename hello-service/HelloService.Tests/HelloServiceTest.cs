@@ -27,7 +27,7 @@ public class HelloServiceTest
     {
         _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
 
-        _helloService.Hello();
+        CallHello();
 
         CheckReceivedOneMessageOf("Buenos días!");
     }
@@ -39,7 +39,7 @@ public class HelloServiceTest
     {
         _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
 
-        _helloService.Hello();
+        CallHello();
 
         CheckReceivedOneMessageOf("Buenas noches!");
     }
@@ -51,9 +51,14 @@ public class HelloServiceTest
     {
         _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
 
-        _helloService.Hello();
+        CallHello();
 
         CheckReceivedOneMessageOf("Buenas tardes!");
+    }
+
+    private void CallHello()
+    {
+        _helloService.Hello();
     }
 
     private void CheckReceivedOneMessageOf(string message)
