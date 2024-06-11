@@ -15,8 +15,8 @@ Inputs indirectos hora 6AM 12AM
 Outputs Saludo
 
 Dependencias Incomodas 
-* DateTime 
-* Console.WriteLine
+* DateTime  (DateProvider)
+* Console.WriteLine (Notifier)
 
 Ejemplos: 
 
