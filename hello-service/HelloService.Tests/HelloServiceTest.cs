@@ -8,12 +8,15 @@ public class HelloServiceTest
 {
     private Greetings _greetings;
     private DateProvider _dateProvider;
+    private HelloService _helloService;
 
     [SetUp]
     public void SetUp()
     {
         _greetings = Substitute.For<Greetings>();
         _dateProvider = Substitute.For<DateProvider>();
+
+        _helloService = new(_greetings, _dateProvider);
     }
 
     [TestCase(8)]
@@ -23,9 +26,7 @@ public class HelloServiceTest
     {
         _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
 
-        HelloService helloService = new(_greetings, _dateProvider);
-
-        helloService.Hello();
+        _helloService.Hello();
 
         _greetings.Received(1).SayGoodMorning();
         _greetings.Received(0).SayGoodAfternoon();
@@ -40,9 +41,7 @@ public class HelloServiceTest
     {
         _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
 
-        HelloService helloService = new(_greetings, _dateProvider);
-
-        helloService.Hello();
+        _helloService.Hello();
 
         _greetings.Received(1).SayGoodNight();
         _greetings.Received(0).SayGoodMorning();
@@ -56,9 +55,7 @@ public class HelloServiceTest
     {
         _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
 
-        HelloService helloService = new(_greetings, _dateProvider);
-
-        helloService.Hello();
+        _helloService.Hello();
 
         _greetings.Received(1).SayGoodAfternoon();
         _greetings.Received(0).SayGoodMorning();
