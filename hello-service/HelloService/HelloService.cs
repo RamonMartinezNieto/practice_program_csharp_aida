@@ -13,22 +13,43 @@ public class HelloService
 
     public void Hello()
     {
-        var currentDate = _dateProvider.GetDate();
+        var hour = GetCurrentHour();
 
-        var hour = currentDate.Hour;
-
-        if (hour < 6 || hour > 20)
+        if (IsNight(hour))
         {
             _greetings.SayGoodNight();
             return;
         }
 
-        if (hour > 12)
+        if (IsAfternoon(hour))
         {
             _greetings.SayGoodAfternoon();
             return;
         }
 
-        _greetings.SayGoodMorning();
+        if (IsMoorning(hour))
+        {
+            _greetings.SayGoodMorning();
+        }
+    }
+
+    private bool IsMoorning(int hour)
+    {
+        return hour >= 6 || hour <= 12;
+    }
+
+    private static bool IsAfternoon(int hour)
+    {
+        return hour > 12;
+    }
+
+    private static bool IsNight(int hour)
+    {
+        return hour < 6 || hour > 20;
+    }
+
+    private int GetCurrentHour()
+    {
+        return _dateProvider.GetDate().Hour;
     }
 }
