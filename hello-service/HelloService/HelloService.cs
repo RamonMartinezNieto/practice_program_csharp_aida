@@ -17,7 +17,7 @@ public class HelloService
 
         var hour = currentDate.Hour;
 
-        if (hour < 6)
+        if (hour < 6 || hour > 20)
         {
             _notifier.SayGoodNight();
         }

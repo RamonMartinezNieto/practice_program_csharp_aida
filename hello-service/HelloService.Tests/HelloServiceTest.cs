@@ -32,6 +32,7 @@ public class HelloServiceTest
 
 
     [TestCase(5)]
+    [TestCase(23)]
     public void Say_GoodNight_At(int hour)
     {
         _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
