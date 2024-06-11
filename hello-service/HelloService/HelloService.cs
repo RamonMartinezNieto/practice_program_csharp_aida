@@ -16,27 +16,20 @@ public class HelloService
 
     public void Hello()
     {
-        var hour = GetCurrentHour();
-
-        if (_schedule.IsNight(hour))
+        if (_schedule.IsNight())
         {
             _greetings.SayGoodNight();
         }
 
-        if (_schedule.IsAfternoon(hour))
+        if (_schedule.IsAfternoon())
         {
             _greetings.SayGoodAfternoon();
         }
 
-        if (_schedule.IsMorning(hour))
+        if (_schedule.IsMorning())
         {
             _greetings.SayGoodMorning();
         }
-    }
-
-    private int GetCurrentHour()
-    {
-        return _dateProvider.GetDate().Hour;
     }
 }
 
@@ -49,18 +42,26 @@ public class Schedule
         _dateProvider = dateProvider;
     }
 
-    public bool IsMorning(int hour)
+    public bool IsMorning()
     {
+        var hour = GetCurrentHour();
         return hour >= 6 && hour <= 12;
     }
 
-    public bool IsAfternoon(int hour)
+    public bool IsAfternoon()
     {
+        var hour = GetCurrentHour();
         return hour > 12 && hour <= 20;
     }
 
-    public bool IsNight(int hour)
+    public bool IsNight()
     {
+        var hour = GetCurrentHour();
         return hour < 6 || hour > 20;
+    }
+
+    private int GetCurrentHour()
+    {
+        return _dateProvider.GetDate().Hour;
     }
 }
