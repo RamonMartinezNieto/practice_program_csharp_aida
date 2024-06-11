@@ -1,6 +1,6 @@
 using System;
 
-namespace Hello;
+namespace Hello.Business;
 
 public interface DateProvider
 {

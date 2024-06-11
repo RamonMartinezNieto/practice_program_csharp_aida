@@ -1,3 +1,5 @@
+using Hello.Business;
+
 namespace Hello;
 
 public class HelloService

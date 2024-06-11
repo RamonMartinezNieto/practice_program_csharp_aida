@@ -1,4 +1,4 @@
-namespace Hello;
+namespace Hello.Business;
 
 public class Schedule
 {
