@@ -16,4 +16,10 @@ public class StocksOrderSummaryFormatter
         var currTime = _timeProvider.GetDate();
         return $"{currTime.ToString("MM/dd/yyyy HH:mm", new CultureInfo("en-US"))} Buy: € 0.00, Sell: € 0.00";
     }
+
+    public string CreateMessageFail()
+    {
+        var currTime = _timeProvider.GetDate();
+        return $"{currTime.ToString("MM/dd/yyyy HH:mm", new CultureInfo("en-US"))} Buy: € 0.00, Sell: € 0.00, Failed: GOOG";
+    }
 }
