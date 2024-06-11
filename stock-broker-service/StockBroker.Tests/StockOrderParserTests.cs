@@ -9,9 +9,7 @@ public class StockOrderParserTests
     [Test]
     public void ParseOneBuyOrder()
     {
-        StockOrderParser parser = new();
-
-        StockOrder order = parser.ParseOrder("GOOG 300 829.08 B");
+        StockOrder order = StockOrder.Parse("GOOG 300 829.08 B");
 
         order.TickerSymbol.Should().Be("GOOG");
         order.Quantity.Should().Be(300);
@@ -27,24 +25,15 @@ public class StockOrder
     public decimal Price { get; init; }
     public OrderType Type { get; init; }
 
-    public StockOrder(string tickerSymbol, int quantity, decimal price, OrderType type)
+    private StockOrder(string tickerSymbol, int quantity, decimal price, OrderType type)
     {
         TickerSymbol = tickerSymbol;
         Quantity = quantity;
         Price = price;
         Type = type;
     }
-}
 
-public enum OrderType
-{
-    Buy,
-    None
-}
-
-public class StockOrderParser
-{
-    public StockOrder ParseOrder(string order)
+    public static StockOrder Parse(string order)
     {
         var orderItems = order.Split(" ");
         var tickerSymbol = orderItems[0];
@@ -65,3 +54,10 @@ public class StockOrderParser
         return OrderType.None;
     }
 }
+
+public enum OrderType
+{
+    Buy,
+    None
+}
+
