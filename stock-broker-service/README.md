@@ -139,9 +139,9 @@ Exception personalizada para cuando falla el cliente
 ### Ejemplos 
 
 Interaz
-StockBrokerClient.PlaceOrders(string orderSequence)
+StockBrokerService.PlaceOrders(string orderSequence)
 
-Pedido vacio "" => 15/08/2019 14:45 Compra: 0,00 €, Venta: 0,00 €
+Pedido vacio "" => 08/15/2019 14:45 Compra: 0,00 €, Venta: 0,00 €
 	Nos obliga a tener el dateProvider 
 	Nos obliga a tener el Notifier 
 	Nos obliga a tener un Formateador de mensajes
