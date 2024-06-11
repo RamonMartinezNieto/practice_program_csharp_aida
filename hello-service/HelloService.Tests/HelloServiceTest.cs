@@ -46,6 +46,8 @@ public class HelloServiceTest
     }
 
     [TestCase(12)]
+    [TestCase(15)]
+    [TestCase(20)]
     public void Say_GoodAfternoon_At(int hour)
     {
         _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
