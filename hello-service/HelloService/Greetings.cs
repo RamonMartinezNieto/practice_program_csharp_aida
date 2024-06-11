@@ -1,6 +1,6 @@
 namespace Hello;
 
-public interface Notifier
+public interface Greetings
 {
     void SayGoodMorning();
     void SayGoodNight();
