@@ -14,17 +14,17 @@ public class HelloService
 
     public void Hello()
     {
-        if (_schedule.IsNight())
+        if (_schedule.ItIsNight())
         {
             _greetings.SayGoodNight();
         }
 
-        if (_schedule.IsAfternoon())
+        if (_schedule.ItIsAfternoon())
         {
             _greetings.SayGoodAfternoon();
         }
 
-        if (_schedule.IsMorning())
+        if (_schedule.ItIsMorning())
         {
             _greetings.SayGoodMorning();
         }
