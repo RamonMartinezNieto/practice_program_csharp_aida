@@ -9,7 +9,6 @@ public class HelloService
     {
         _greetings = new Greetings(notifier);
         _schedule = new Schedule(dateProvider);
-
     }
 
     public void Hello()
