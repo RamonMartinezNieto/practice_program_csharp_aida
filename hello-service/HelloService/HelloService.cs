@@ -27,13 +27,13 @@ public class HelloService
             return;
         }
 
-        if (IsMoorning(hour))
+        if (IsMorning(hour))
         {
             _greetings.SayGoodMorning();
         }
     }
 
-    private bool IsMoorning(int hour)
+    private bool IsMorning(int hour)
     {
         return hour >= 6 || hour <= 12;
     }
