@@ -1,6 +1,4 @@
-using Hello.Business;
-
-namespace Hello;
+namespace Hello.Business;
 
 public class HelloService
 {
