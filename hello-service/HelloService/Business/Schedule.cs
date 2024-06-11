@@ -1,29 +1,33 @@
+using System;
+
 namespace Hello.Business;
 
 public class Schedule
 {
-    private readonly DateProvider _dateProvider;
     private readonly int _hour;
+    private readonly DateTime _dateTime;
+
+    private readonly TimeBetween _morning;
+    private readonly TimeBetween _afternoon;
 
     public Schedule(DateProvider dateProvider)
     {
-        _dateProvider = dateProvider;
-        _hour = _dateProvider.GetDate().Hour;
+        _hour = dateProvider.GetDate().Hour;
+        _dateTime = dateProvider.GetDate();
+
+        _morning = new(TimeOnlyWith(5), TimeOnlyWith(13));
+        _afternoon = new(TimeOnlyWith(12), TimeOnlyWith(21));
     }
 
     public bool ItIsMorning()
     {
-        var from = _hour > 5;
-        var to = _hour < 13;
-
-        return from && to;
+        return _morning.IsInTime(TimeOnly.FromDateTime(_dateTime));
     }
+
 
     public bool ItIsAfternoon()
     {
-        var from = _hour > 12;
-        var to = _hour < 21;
-        return from && to;
+        return _afternoon.IsInTime(TimeOnly.FromDateTime(_dateTime));
     }
 
     public bool ItIsNight()
@@ -31,5 +35,10 @@ public class Schedule
         var from = _hour > 20;
         var to = _hour < 6;
         return from || to;
+    }
+
+    private static TimeOnly TimeOnlyWith(int hour)
+    {
+        return new TimeOnly(hour, 0, 0);
     }
 }
