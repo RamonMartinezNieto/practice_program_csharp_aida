@@ -45,7 +45,7 @@ public class HelloServiceTest
         _greetings.Received(1).SayGoodNight();
     }
 
-    [TestCase(12)]
+    [TestCase(13)]
     [TestCase(15)]
     [TestCase(20)]
     public void Say_GoodAfternoon_At(int hour)
@@ -57,5 +57,7 @@ public class HelloServiceTest
         helloService.Hello();
 
         _greetings.Received(1).SayGoodAfternoon();
+        _greetings.Received(0).SayGoodMorning();
+        _greetings.Received(0).SayGoodNight();
     }
 }

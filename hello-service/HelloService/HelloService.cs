@@ -20,11 +20,13 @@ public class HelloService
         if (hour < 6 || hour > 20)
         {
             _greetings.SayGoodNight();
+            return;
         }
 
-        if (hour >= 12)
+        if (hour > 12)
         {
             _greetings.SayGoodAfternoon();
+            return;
         }
 
         _greetings.SayGoodMorning();
