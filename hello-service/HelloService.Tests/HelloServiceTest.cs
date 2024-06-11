@@ -29,10 +29,8 @@ public class HelloServiceTest
 
         _helloService.Hello();
 
-        _notifier.Received(1).Notify("Buenos días!");
-        _notifier.Received(1).Notify(Arg.Any<string>());
+        CheckReceivedOneMessageOf("Buenos días!");
     }
-
 
     [TestCase(5)]
     [TestCase(23)]
@@ -43,8 +41,7 @@ public class HelloServiceTest
 
         _helloService.Hello();
 
-        _notifier.Received(1).Notify("Buenas noches!");
-        _notifier.Received(1).Notify(Arg.Any<string>());
+        CheckReceivedOneMessageOf("Buenas noches!");
     }
 
     [TestCase(13)]
@@ -56,7 +53,12 @@ public class HelloServiceTest
 
         _helloService.Hello();
 
-        _notifier.Received(1).Notify("Buenas tardes!");
+        CheckReceivedOneMessageOf("Buenas tardes!");
+    }
+
+    private void CheckReceivedOneMessageOf(string message)
+    {
+        _notifier.Received(1).Notify(message);
         _notifier.Received(1).Notify(Arg.Any<string>());
     }
 }
