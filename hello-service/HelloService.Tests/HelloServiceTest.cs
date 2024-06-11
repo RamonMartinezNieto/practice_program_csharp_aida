@@ -1,5 +1,4 @@
 using NSubstitute;
-using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace Hello.Tests;
@@ -8,12 +7,14 @@ public class HelloServiceTest
 {
     private Greetings _greetings;
     private DateProvider _dateProvider;
+    private Notifier _notifier;
     private HelloService _helloService;
 
     [SetUp]
     public void SetUp()
     {
-        _greetings = Substitute.For<Greetings>();
+        _notifier = Substitute.For<Notifier>();
+        _greetings = new Greetings(_notifier);
         _dateProvider = Substitute.For<DateProvider>();
 
         _helloService = new(_greetings, _dateProvider);
@@ -28,9 +29,8 @@ public class HelloServiceTest
 
         _helloService.Hello();
 
-        _greetings.Received(1).SayGoodMorning();
-        _greetings.Received(0).SayGoodAfternoon();
-        _greetings.Received(0).SayGoodNight();
+        _notifier.Received(1).Notify("Buenos días!");
+        _notifier.Received(1).Notify(Arg.Any<string>());
     }
 
 
@@ -43,9 +43,8 @@ public class HelloServiceTest
 
         _helloService.Hello();
 
-        _greetings.Received(1).SayGoodNight();
-        _greetings.Received(0).SayGoodMorning();
-        _greetings.Received(0).SayGoodAfternoon();
+        _notifier.Received(1).Notify("Buenas noches!");
+        _notifier.Received(1).Notify(Arg.Any<string>());
     }
 
     [TestCase(13)]
@@ -57,8 +56,7 @@ public class HelloServiceTest
 
         _helloService.Hello();
 
-        _greetings.Received(1).SayGoodAfternoon();
-        _greetings.Received(0).SayGoodMorning();
-        _greetings.Received(0).SayGoodNight();
+        _notifier.Received(1).Notify("Buenas tardes!");
+        _notifier.Received(1).Notify(Arg.Any<string>());
     }
 }
