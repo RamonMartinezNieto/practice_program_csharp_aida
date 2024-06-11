@@ -25,7 +25,7 @@ public class HelloServiceTest
     [TestCase(12)]
     public void Say_BuenosDias_At(int hour)
     {
-        _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
+        GivenDateTimeWithHour(hour);
 
         CallHello();
 
@@ -37,7 +37,7 @@ public class HelloServiceTest
     [TestCase(21)]
     public void Say_GoodNight_At(int hour)
     {
-        _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
+        GivenDateTimeWithHour(hour);
 
         CallHello();
 
@@ -49,11 +49,16 @@ public class HelloServiceTest
     [TestCase(20)]
     public void Say_GoodAfternoon_At(int hour)
     {
-        _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
+        GivenDateTimeWithHour(hour);
 
         CallHello();
 
         CheckReceivedOneMessageOf("Buenas tardes!");
+    }
+
+    private void GivenDateTimeWithHour(int hour)
+    {
+        _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
     }
 
     private void CallHello()
