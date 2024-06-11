@@ -16,7 +16,7 @@ Outputs Saludo
 
 Dependencias Incomodas 
 * DateTime  (DateProvider)
-* Console.WriteLine (Notifier)
+* Console.WriteLine (Notifier a lo mejor es Greetings)
 
 Ejemplos: 
 

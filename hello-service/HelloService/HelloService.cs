@@ -13,6 +13,15 @@ public class HelloService
 
     public void Hello()
     {
+        var currentDate = _dateProvider.GetDate();
+
+        var hour = currentDate.Hour;
+
+        if (hour < 6)
+        {
+            _notifier.SayGoodNight();
+        }
+
         _notifier.SayGoodMorning();
     }
 }
