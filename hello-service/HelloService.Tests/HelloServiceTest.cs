@@ -15,8 +15,6 @@ public class HelloServiceTest
     {
         _notifier = Substitute.For<Notifier>();
         _dateProvider = Substitute.For<DateProvider>();
-
-        _helloService = new(_notifier, _dateProvider);
     }
 
     [TestCase(8)]
@@ -25,6 +23,7 @@ public class HelloServiceTest
     public void Say_BuenosDias_At(int hour)
     {
         GivenDateTimeWithHour(hour);
+        _helloService = new(_notifier, _dateProvider);
 
         CallHello();
 
@@ -37,6 +36,7 @@ public class HelloServiceTest
     public void Say_GoodNight_At(int hour)
     {
         GivenDateTimeWithHour(hour);
+        _helloService = new(_notifier, _dateProvider);
 
         CallHello();
 
@@ -49,6 +49,7 @@ public class HelloServiceTest
     public void Say_GoodAfternoon_At(int hour)
     {
         GivenDateTimeWithHour(hour);
+        _helloService = new(_notifier, _dateProvider);
 
         CallHello();
 
