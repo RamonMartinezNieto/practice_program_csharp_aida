@@ -5,4 +5,8 @@
         <RootNamespace>StockBroker</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Business\" />
+    </ItemGroup>
+
 </Project>
