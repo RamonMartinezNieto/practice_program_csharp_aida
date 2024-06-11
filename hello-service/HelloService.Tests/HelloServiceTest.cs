@@ -45,4 +45,15 @@ public class HelloServiceTest
         _greetings.Received(1).SayGoodNight();
     }
 
+    [TestCase(12)]
+    public void Say_GoodAfternoon_At(int hour)
+    {
+        _dateProvider.GetDate().Returns(DateTimeBuilder.DefaultDateTime().WithHour(hour).Build());
+
+        HelloService helloService = new(_greetings, _dateProvider);
+
+        helloService.Hello();
+
+        _greetings.Received(1).SayGoodAfternoon();
+    }
 }

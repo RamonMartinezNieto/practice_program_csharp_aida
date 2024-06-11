@@ -2,12 +2,12 @@ namespace Hello;
 
 public class HelloService
 {
-    private readonly Notifier _notifier;
+    private readonly Greetings _greetings;
     private readonly DateProvider _dateProvider;
 
-    public HelloService(Notifier notifier, DateProvider dateProvider)
+    public HelloService(Greetings greetings, DateProvider dateProvider)
     {
-        _notifier = notifier;
+        _greetings = greetings;
         _dateProvider = dateProvider;
     }
 
@@ -19,9 +19,14 @@ public class HelloService
 
         if (hour < 6 || hour > 20)
         {
-            _notifier.SayGoodNight();
+            _greetings.SayGoodNight();
         }
 
-        _notifier.SayGoodMorning();
+        if (hour >= 12)
+        {
+            _greetings.SayGoodAfternoon();
+        }
+
+        _greetings.SayGoodMorning();
     }
 }
