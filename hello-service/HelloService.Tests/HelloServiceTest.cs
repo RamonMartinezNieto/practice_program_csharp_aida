@@ -20,30 +20,3 @@ public class HelloServiceTest
         notifier.Received(1).SayGoodMorning();
     }
 }
-
-public class HelloService
-{
-    private readonly Notifier _notifier;
-    private readonly DateProvider _dateProvider;
-
-    public HelloService(Notifier notifier, DateProvider dateProvider)
-    {
-        _notifier = notifier;
-        _dateProvider = dateProvider;
-    }
-
-    public void Hello()
-    {
-        _notifier.SayGoodMorning();
-    }
-}
-
-public interface DateProvider
-{
-    DateTime GetDate();
-}
-
-public interface Notifier
-{
-    void SayGoodMorning();
-}
