@@ -8,8 +8,10 @@ public class StockOrders
     private readonly List<StockOrder> _orders;
 
     public IEnumerable<StockOrder> AllOrders => _orders;
-    private IEnumerable<StockOrder> BuyOrders => _orders.Where(x => x.Type.Equals(OrderType.Buy));
-    private IEnumerable<StockOrder> SellOrders => _orders.Where(x => x.Type.Equals(OrderType.Sell));
+    private IEnumerable<StockOrder> BuyOrders => _orders.Where(x => x.Type.Equals(OrderType.Buy) && !x.IsFaulted);
+    private IEnumerable<StockOrder> SellOrders => _orders.Where(x => x.Type.Equals(OrderType.Sell) && !x.IsFaulted);
+    public IEnumerable<StockOrder> FailedOrders => _orders.Where(x => x.IsFaulted);
+
 
     private StockOrders()
     {

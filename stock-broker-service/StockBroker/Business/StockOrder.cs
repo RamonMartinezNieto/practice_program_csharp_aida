@@ -4,6 +4,7 @@ namespace StockBroker.Business;
 
 public class StockOrder
 {
+    public bool IsFaulted { get; private set; }
     public string TickerSymbol { get; init; }
     public int Quantity { get; init; }
     public decimal Price { get; init; }
@@ -53,5 +54,10 @@ public class StockOrder
     public decimal CalculateStockOrderPrice()
     {
         return Quantity * Price;
+    }
+
+    public void SetFail()
+    {
+        IsFaulted = true;
     }
 }

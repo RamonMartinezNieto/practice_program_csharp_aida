@@ -1,5 +1,6 @@
 using StockBroker.Business;
 using System.Globalization;
+using System.Linq;
 
 namespace StockBroker;
 
@@ -19,12 +20,14 @@ public class StocksOrderSummaryFormatter
         var priceBuy = stockOrder.CalculateTotalBuyPrice().ToString("0.00", _cultureInfo);
         var priceSell = stockOrder.CalculateTotalSellPrice().ToString("0.00", _cultureInfo);
 
-        return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € {priceSell}";
-    }
+        var failedOrders = stockOrder.FailedOrders;
+        string failed = string.Empty;
 
-    public string CreateMessageFail()
-    {
-        var currTime = _timeProvider.GetDate();
-        return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € 0.00, Sell: € 0.00, Failed: GOOG";
+        if (failedOrders.Any())
+        {
+            failed = $", Failed: {string.Join("", failedOrders.Select(x => x.TickerSymbol))}";
+        }
+
+        return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € {priceSell}{failed}";
     }
 }

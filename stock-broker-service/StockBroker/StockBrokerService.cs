@@ -22,26 +22,21 @@ public class StockBrokerService
     {
         var orders = StockOrders.Parse(stocksOrders);
 
-        string message = string.Empty;
-
-        try
+        foreach (var order in orders.AllOrders)
         {
-            foreach (var order in orders.AllOrders)
+            var stockOrderDto = StockOrderToDto(order);
+
+            try
             {
-                var stockOrderDto = StockOrderToDto(order);
                 _stockBrokerOnline.Order(stockOrderDto);
             }
+            catch
+            {
+                order.SetFail();
+            }
+        }
 
-            message = _formater.CreateMessage(orders);
-        }
-        catch
-        {
-            message = _formater.CreateMessageFail();
-        }
-        finally
-        {
-            _notifier.Notify(message);
-        }
+        _notifier.Notify(_formater.CreateMessage(orders));
     }
 
     private StockOrderDto StockOrderToDto(StockOrder stockOrder)
