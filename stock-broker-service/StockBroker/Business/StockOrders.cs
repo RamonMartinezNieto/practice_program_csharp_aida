@@ -21,7 +21,13 @@ public class StockOrders
     public static StockOrders Parse(string stocksOrders)
     {
         StockOrders orders = new();
-        orders._orders.Add(StockOrder.Parse(stocksOrders));
+
+        var allOrders = stocksOrders.Split(',');
+
+        foreach (var currOrder in allOrders)
+        {
+            orders._orders.Add(StockOrder.Parse(currOrder));
+        }
         return orders;
     }
 
@@ -38,5 +44,10 @@ public class StockOrders
     public bool ThereIsAnyFaultedOrder()
     {
         return FailedOrders.Any();
+    }
+
+    public IEnumerable<string> GetFailedTickerSymbols()
+    {
+        return FailedOrders.Select(x => x.TickerSymbol);
     }
 }

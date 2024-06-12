@@ -1,6 +1,5 @@
 using StockBroker.Business;
 using System.Globalization;
-using System.Linq;
 
 namespace StockBroker;
 
@@ -29,7 +28,7 @@ public class StocksOrderSummaryFormatter
     {
         if (stockOrders.ThereIsAnyFaultedOrder())
         {
-            return $", Failed: {string.Join("", stockOrders.FailedOrders.Select(x => x.TickerSymbol))}";
+            return $", Failed: {string.Join("", stockOrders.GetFailedTickerSymbols())}";
         }
 
         return string.Empty;

@@ -89,4 +89,33 @@ public class StockBrokerServiceTest
         });
         _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 0.00, Sell: € 300.00");
     }
+
+
+
+    [Test]
+    public void TwoBuyOrdersStockSuccessfully()
+    {
+        _timeProvider.GetDate().Returns(CreateDateTime()
+            .WithDate(2022, 07, 15)
+            .WithTime(23, 59).Build());
+
+        _stockBrokerService.PlaceOrders("GOOG 1 30.00 B,FB 1 10.00 B");
+
+        _stockBrokerOnline.Received(1).Order(new StockOrderDto()
+        {
+            TickerSymbol = "GOOG",
+            Price = 30.0M,
+            Quantity = 1,
+            Type = 'B'
+        });
+        _stockBrokerOnline.Received(1).Order(new StockOrderDto()
+        {
+            TickerSymbol = "FB",
+            Price = 10.0M,
+            Quantity = 1,
+            Type = 'B'
+        });
+
+        _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 40.00, Sell: € 0.00");
+    }
 }
