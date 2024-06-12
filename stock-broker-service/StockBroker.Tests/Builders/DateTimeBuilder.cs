@@ -1,4 +1,4 @@
-﻿namespace StockBroker.Tests;
+﻿namespace StockBroker.Tests.Builders;
 
 public class DateTimeBuilder
 {

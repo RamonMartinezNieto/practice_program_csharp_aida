@@ -1,6 +1,7 @@
 using NSubstitute;
 using NUnit.Framework;
-using static StockBroker.Tests.DateTimeBuilder;
+using static StockBroker.Tests.Builders.DateTimeBuilder;
+using static StockBroker.Tests.Builders.StockOrderDtoBuilder;
 
 namespace StockBroker.Tests;
 
@@ -60,13 +61,8 @@ public class StockBrokerServiceTest
 
         _stockBrokerService.PlaceOrders("GOOG 300 829.08 B");
 
-        _stockBrokerOnline.Received(1).Order(new StockOrderDto()
-        {
-            TickerSymbol = "GOOG",
-            Price = 829.08M,
-            Quantity = 300,
-            Type = 'B'
-        });
+
+        _stockBrokerOnline.Received(1).Order(BuyStockOrder("GOOG", 829.08M, 300).Build());
         _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 248724.00, Sell: € 0.00");
     }
 
@@ -80,16 +76,9 @@ public class StockBrokerServiceTest
 
         _stockBrokerService.PlaceOrders("FB 10 30 S");
 
-        _stockBrokerOnline.Received(1).Order(new StockOrderDto()
-        {
-            TickerSymbol = "FB",
-            Price = 30.0M,
-            Quantity = 10,
-            Type = 'S'
-        });
+        _stockBrokerOnline.Received(1).Order(SellStockOrder("FB", 30.0M, 10).Build());
         _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 0.00, Sell: € 300.00");
     }
-
 
 
     [Test]
@@ -101,21 +90,8 @@ public class StockBrokerServiceTest
 
         _stockBrokerService.PlaceOrders("GOOG 1 30.00 B,FB 1 10.00 B");
 
-        _stockBrokerOnline.Received(1).Order(new StockOrderDto()
-        {
-            TickerSymbol = "GOOG",
-            Price = 30.0M,
-            Quantity = 1,
-            Type = 'B'
-        });
-        _stockBrokerOnline.Received(1).Order(new StockOrderDto()
-        {
-            TickerSymbol = "FB",
-            Price = 10.0M,
-            Quantity = 1,
-            Type = 'B'
-        });
-
+        _stockBrokerOnline.Received(1).Order(BuyStockOrder("GOOG", 30.0M, 1).Build());
+        _stockBrokerOnline.Received(1).Order(BuyStockOrder("FB", 10.0M, 1).Build());
         _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 40.00, Sell: € 0.00");
     }
 }
