@@ -3,5 +3,6 @@
 public enum OrderType
 {
     Buy,
+    Sell,
     None
 }

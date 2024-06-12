@@ -60,6 +60,7 @@ public class StockBrokerService
         return stockOrder.Type switch
         {
             OrderType.Buy => 'B',
+            OrderType.Sell => 'S',
             OrderType.None => ' ',
             _ => ' ',
         };

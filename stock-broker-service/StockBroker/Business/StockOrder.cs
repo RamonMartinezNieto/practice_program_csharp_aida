@@ -47,7 +47,10 @@ public class StockOrder
         {
             return OrderType.Buy;
         }
-
+        if (orderItems.Equals("S"))
+        {
+            return OrderType.Sell;
+        }
         return OrderType.None;
     }
 

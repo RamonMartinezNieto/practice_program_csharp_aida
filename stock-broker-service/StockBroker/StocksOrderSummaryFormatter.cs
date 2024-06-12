@@ -17,8 +17,9 @@ public class StocksOrderSummaryFormatter
     {
         var currTime = _timeProvider.GetDate();
         var priceBuy = stockOrder.CalculateTotalBuyPrice().ToString("0.00", _cultureInfo);
+        var priceSell = stockOrder.CalculateTotalSellPrice().ToString("0.00", _cultureInfo);
 
-        return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € 0.00";
+        return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € {priceSell}";
     }
 
     public string CreateMessageFail()

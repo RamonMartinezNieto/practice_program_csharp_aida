@@ -8,7 +8,8 @@ public class StockOrders
     private readonly List<StockOrder> _orders;
 
     public IEnumerable<StockOrder> AllOrders => _orders;
-    public IEnumerable<StockOrder> BuyOrders => _orders.Where(x => x.Type.Equals(OrderType.Buy));
+    private IEnumerable<StockOrder> BuyOrders => _orders.Where(x => x.Type.Equals(OrderType.Buy));
+    private IEnumerable<StockOrder> SellOrders => _orders.Where(x => x.Type.Equals(OrderType.Sell));
 
     private StockOrders()
     {
@@ -24,6 +25,11 @@ public class StockOrders
 
     public decimal CalculateTotalBuyPrice()
     {
-        return BuyOrders.Sum(order => (order.Price * order.Quantity));
+        return BuyOrders.Sum(order => order.CalculateStockOrderPrice());
+    }
+
+    public decimal CalculateTotalSellPrice()
+    {
+        return SellOrders.Sum(order => order.CalculateStockOrderPrice());
     }
 }

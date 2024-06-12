@@ -69,4 +69,24 @@ public class StockBrokerServiceTest
         });
         _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 248724.00, Sell: € 0.00");
     }
+
+
+    [Test]
+    public void OneOrderSellStockSuccessfully()
+    {
+        _timeProvider.GetDate().Returns(CreateDateTime()
+            .WithDate(2022, 07, 15)
+            .WithTime(23, 59).Build());
+
+        _stockBrokerService.PlaceOrders("FB 10 30 S");
+
+        _stockBrokerOnline.Received(1).Order(new StockOrderDto()
+        {
+            TickerSymbol = "FB",
+            Price = 30.0M,
+            Quantity = 10,
+            Type = 'S'
+        });
+        _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 0.00, Sell: € 300.00");
+    }
 }

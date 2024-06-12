@@ -152,7 +152,7 @@ Un pedido que falla  "GOOG 300 829.08 B" => 6/18/2009 1:45 PM € 0.00, Sell: € 0.
 Un solo pedido de compra "GOOG 300 829.08 B"
 07/15/2022 23:59 Buy: € 248724.00, Sell: € 0.00
 
-Un solo pedido de venta "FB 100 30 S"
+Un solo pedido de venta "FB 10 30 S"
 7/11/2012 2:45 PM Buy € 0.00, Sell: € 300.00
 
 Dos pedidos de compra: "GOOG 1 30.00 B,FB 1 10.00 B"
