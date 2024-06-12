@@ -94,4 +94,16 @@ public class StockBrokerServiceTest
         _stockBrokerOnline.Received(1).Order(BuyStockOrder("FB", 10.0M, 1).Build());
         _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 40.00, Sell: € 0.00");
     }
+
+    [Test]
+    public void TwoSellOrdersStockSuccessfully()
+    {
+        _timeProvider.GetDate().Returns(CreateDateTime()
+            .WithDate(2022, 07, 15)
+            .WithTime(23, 59).Build());
+
+        _stockBrokerService.PlaceOrders("GOOG 1 30.00 S,FB 1 10.00 S");
+
+        _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 0.00, Sell: € 40.00");
+    }
 }
