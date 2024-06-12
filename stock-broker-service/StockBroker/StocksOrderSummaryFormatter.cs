@@ -28,7 +28,7 @@ public class StocksOrderSummaryFormatter
     {
         if (stockOrders.ThereIsAnyFaultedOrder())
         {
-            return $", Failed: {string.Join("", stockOrders.GetFailedTickerSymbols())}";
+            return $", Failed: {string.Join(", ", stockOrders.GetFailedTickerSymbols())}";
         }
 
         return string.Empty;

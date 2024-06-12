@@ -136,5 +136,25 @@ public class StockBrokerServiceTest
         _stockBrokerService.PlaceOrders("GOOG 1 30.00 B,FB 1 10.00 S,OTHER 1 10.00 S");
 
         _notifier.Received(1).Notify("07/15/2022 23:59 Buy: € 30.00, Sell: € 10.00, Failed: OTHER");
+
     }
+
+
+    [Test]
+    public void TwoOrderFailed()
+    {
+        _timeProvider.GetDate().Returns(CreateDateTime()
+            .WithDate(2009, 06, 18)
+            .WithTime(13, 45).Build());
+
+        _stockBrokerOnline
+            .When(x => x.Order(Arg.Any<StockOrderDto>()))
+            .Do(x => { throw new Exception("Order failed"); });
+
+
+        _stockBrokerService.PlaceOrders("GOOG 300 829.08 B,FB 300 829.08 B");
+
+        _notifier.Received(1).Notify("06/18/2009 13:45 Buy: € 0.00, Sell: € 0.00, Failed: GOOG, FB");
+    }
+
 }
