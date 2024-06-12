@@ -37,4 +37,9 @@ public class StockOrder
 
         return OrderType.None;
     }
+
+    public decimal CalculateStockOrderPrice()
+    {
+        return this.Quantity * this.Price;
+    }
 }
