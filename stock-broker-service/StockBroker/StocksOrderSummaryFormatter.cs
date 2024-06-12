@@ -27,7 +27,7 @@ public class StocksOrderSummaryFormatter
         return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € 0.00";
     }
 
-    private static decimal CalculateStockOrderPrice(StockOrder stockOrder)
+    private decimal CalculateStockOrderPrice(StockOrder stockOrder)
     {
         return stockOrder.Quantity * stockOrder.Price;
     }
