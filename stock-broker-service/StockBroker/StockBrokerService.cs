@@ -1,4 +1,4 @@
-using StockBroker.Business;
+using StockBroker.Models;
 
 namespace StockBroker;
 
