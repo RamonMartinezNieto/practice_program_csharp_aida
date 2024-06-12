@@ -17,4 +17,3 @@ public class StockOrderParserTests
         order.Type.Should().Be(OrderType.Buy);
     }
 }
-

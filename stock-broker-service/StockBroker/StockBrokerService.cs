@@ -1,3 +1,4 @@
+using StockBroker.Business;
 using System;
 
 namespace StockBroker;
@@ -22,13 +23,20 @@ public class StockBrokerService
     {
         string message = string.Empty;
 
+        if (string.IsNullOrEmpty(stocksOrders))
+        {
+            message = _formater.CreateMessage();
+            _notifier.Notify(message);
+            return;
+        }
+
         try
         {
-            _stockBrokerOnline.Order(new StockOrderDto());
-            if (string.IsNullOrEmpty(stocksOrders))
-            {
-                message = _formater.CreateMessage();
-            }
+            var stockOrder = StockOrder.Parse(stocksOrders);
+            var stockOrderDto = StockOrderToDto(stockOrder);
+
+            _stockBrokerOnline.Order(stockOrderDto);
+            message = _formater.CreateMessage(stockOrder);
         }
         catch (Exception ex)
         {
@@ -36,5 +44,26 @@ public class StockBrokerService
         }
 
         _notifier.Notify(message);
+    }
+
+    private StockOrderDto StockOrderToDto(StockOrder stockOrder)
+    {
+        return new StockOrderDto()
+        {
+            TickerSymbol = stockOrder.TickerSymbol,
+            Price = stockOrder.Price,
+            Quantity = stockOrder.Quantity,
+            Type = GetTypeString(stockOrder)
+        };
+    }
+
+    private static char GetTypeString(StockOrder stockOrder)
+    {
+        return stockOrder.Type switch
+        {
+            OrderType.Buy => 'B',
+            OrderType.None => ' ',
+            _ => ' ',
+        };
     }
 }

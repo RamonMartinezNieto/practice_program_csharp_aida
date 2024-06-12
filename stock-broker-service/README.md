@@ -150,7 +150,7 @@ Pedido vacio "" => 08/15/2019 14:45 Buy: € 0.00, Sell: € 0.00
 Un pedido que falla  "GOOG 300 829.08 B" => 6/18/2009 1:45 PM € 0.00, Sell: € 0.00, Failed: GOOG
 
 Un solo pedido de compra "GOOG 300 829.08 B"
-7/25/2008 3:45 PM Buy € 248724.00 €, Sell: € 0.00
+07/15/2022 23:59 Buy: € 248724.00, Sell: € 0.00
 
 Un solo pedido de venta "FB 100 30 S"
 7/11/2012 2:45 PM Buy € 0.00, Sell: € 300.00

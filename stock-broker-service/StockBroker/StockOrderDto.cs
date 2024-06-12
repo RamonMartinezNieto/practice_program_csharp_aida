@@ -1,6 +1,6 @@
 namespace StockBroker;
 
-public class StockOrderDto
+public record StockOrderDto
 {
     public string TickerSymbol { get; set; }
     public int Quantity { get; set; }
