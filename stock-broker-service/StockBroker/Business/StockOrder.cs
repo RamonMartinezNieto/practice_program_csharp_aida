@@ -9,7 +9,7 @@ public class StockOrder
     public decimal Price { get; init; }
     public OrderType Type { get; init; }
 
-    private StockOrder(string tickerSymbol, int quantity, decimal price, OrderType type)
+    public StockOrder(string tickerSymbol, int quantity, decimal price, OrderType type)
     {
         TickerSymbol = tickerSymbol;
         Quantity = quantity;
@@ -40,6 +40,6 @@ public class StockOrder
 
     public decimal CalculateStockOrderPrice()
     {
-        return this.Quantity * this.Price;
+        return Quantity * Price;
     }
 }

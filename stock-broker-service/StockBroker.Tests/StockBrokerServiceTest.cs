@@ -47,7 +47,7 @@ public class StockBrokerServiceTest
     }
 
     [Test]
-    public void OrderOneStockSucces()
+    public void OrderOneStockSuccessfully()
     {
         _timeProvider.GetDate().Returns(new DateTime(2022, 07, 15, 23, 59, 0, DateTimeKind.Utc));
 

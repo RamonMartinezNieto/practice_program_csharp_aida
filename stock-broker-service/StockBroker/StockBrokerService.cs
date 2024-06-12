@@ -25,7 +25,11 @@ public class StockBrokerService
 
         if (string.IsNullOrEmpty(stocksOrders))
         {
-            message = _formater.CreateMessage();
+            message = _formater.CreateMessage(
+                new StockOrder("EMPTY",
+                    0,
+                    0.00M,
+                    OrderType.None));
             _notifier.Notify(message);
             return;
         }
