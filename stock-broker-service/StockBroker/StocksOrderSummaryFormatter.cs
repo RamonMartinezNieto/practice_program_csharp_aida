@@ -6,7 +6,7 @@ namespace StockBroker;
 public class StocksOrderSummaryFormatter
 {
     private readonly TimeProvider _timeProvider;
-    private CultureInfo _cultureInfo = new("en-US");
+    private readonly CultureInfo _cultureInfo = new("en-US");
 
     public StocksOrderSummaryFormatter(TimeProvider timeProvider)
     {
@@ -15,13 +15,24 @@ public class StocksOrderSummaryFormatter
 
     public string CreateMessage(StockOrders stockOrders)
     {
-        var currTime = _timeProvider.GetDate();
-        var priceBuy = stockOrders.CalculateTotalBuyPrice().ToString("0.00", _cultureInfo);
-        var priceSell = stockOrders.CalculateTotalSellPrice().ToString("0.00", _cultureInfo);
+        var timeFormatted = GetTimeFormatted();
+        var priceBuy = DecimalToString(stockOrders.CalculateTotalBuyPrice());
+        var priceSell = DecimalToString(stockOrders.CalculateTotalSellPrice());
 
         var failed = GenerateFailedMessagePart(stockOrders);
 
-        return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € {priceSell}{failed}";
+        return $"{timeFormatted} Buy: € {priceBuy}, Sell: € {priceSell}{failed}";
+    }
+
+    private string GetTimeFormatted()
+    {
+        var currTime = _timeProvider.GetDate();
+        return currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo);
+    }
+
+    private string DecimalToString(decimal price)
+    {
+        return price.ToString("0.00", _cultureInfo);
     }
 
     private string GenerateFailedMessagePart(StockOrders stockOrders)
