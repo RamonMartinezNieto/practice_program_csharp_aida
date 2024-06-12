@@ -13,10 +13,10 @@ public class StocksOrderSummaryFormatter
         _timeProvider = timeProvider;
     }
 
-    public string CreateMessage(StockOrder stockOrder)
+    public string CreateMessage(StockOrders stockOrder)
     {
         var currTime = _timeProvider.GetDate();
-        var priceBuy = stockOrder.CalculateStockOrderPrice().ToString(_cultureInfo);
+        var priceBuy = stockOrder.CalculateTotalBuyPrice().ToString("0.00", _cultureInfo);
 
         return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € 0.00";
     }

@@ -20,14 +20,17 @@ public class StockBrokerService
 
     public void PlaceOrders(string stocksOrders)
     {
+        var orders = StockOrders.Parse(stocksOrders);
         var order = StockOrder.Parse(stocksOrders);
+
         string message = string.Empty;
 
         try
         {
             var stockOrderDto = StockOrderToDto(order);
             _stockBrokerOnline.Order(stockOrderDto);
-            message = _formater.CreateMessage(order);
+            message = _formater.CreateMessage(orders);
+
         }
         catch
         {
