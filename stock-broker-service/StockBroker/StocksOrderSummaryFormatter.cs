@@ -22,9 +22,14 @@ public class StocksOrderSummaryFormatter
     public string CreateMessage(StockOrder stockOrder)
     {
         var currTime = _timeProvider.GetDate();
-        var priceBuy = (stockOrder.Quantity * stockOrder.Price).ToString(_cultureInfo);
+        var priceBuy = CalculateStockOrderPrice(stockOrder).ToString(_cultureInfo);
 
         return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € 0.00";
+    }
+
+    private static decimal CalculateStockOrderPrice(StockOrder stockOrder)
+    {
+        return stockOrder.Quantity * stockOrder.Price;
     }
 
     public string CreateMessageFail()
