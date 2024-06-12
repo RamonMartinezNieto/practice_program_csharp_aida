@@ -21,33 +21,19 @@ public class StockBrokerService
 
     public void PlaceOrders(string stocksOrders)
     {
-        string message = string.Empty;
-
-        if (string.IsNullOrEmpty(stocksOrders))
-        {
-            message = _formater.CreateMessage(
-                new StockOrder("EMPTY",
-                    0,
-                    0.00M,
-                    OrderType.None));
-            _notifier.Notify(message);
-            return;
-        }
+        var order = StockOrder.Parse(stocksOrders);
 
         try
         {
-            var stockOrder = StockOrder.Parse(stocksOrders);
-            var stockOrderDto = StockOrderToDto(stockOrder);
-
+            var stockOrderDto = StockOrderToDto(order);
             _stockBrokerOnline.Order(stockOrderDto);
-            message = _formater.CreateMessage(stockOrder);
+            _notifier.Notify(_formater.CreateMessage(order));
+
         }
         catch (Exception ex)
         {
-            message = _formater.CreateMessageFail();
+            _notifier.Notify(_formater.CreateMessageFail());
         }
-
-        _notifier.Notify(message);
     }
 
     private StockOrderDto StockOrderToDto(StockOrder stockOrder)

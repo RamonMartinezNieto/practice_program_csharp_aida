@@ -9,7 +9,7 @@ public class StockOrder
     public decimal Price { get; init; }
     public OrderType Type { get; init; }
 
-    public StockOrder(string tickerSymbol, int quantity, decimal price, OrderType type)
+    private StockOrder(string tickerSymbol, int quantity, decimal price, OrderType type)
     {
         TickerSymbol = tickerSymbol;
         Quantity = quantity;
@@ -17,8 +17,21 @@ public class StockOrder
         Type = type;
     }
 
+    private StockOrder()
+    {
+        TickerSymbol = string.Empty;
+        Quantity = 0;
+        Price = 0.00M;
+        Type = OrderType.None;
+    }
+
     public static StockOrder Parse(string order)
     {
+        if (string.IsNullOrEmpty(order))
+        {
+            return new StockOrder();
+        }
+
         var orderItems = order.Split(" ");
         var tickerSymbol = orderItems[0];
         var quantity = int.Parse(orderItems[1]);
