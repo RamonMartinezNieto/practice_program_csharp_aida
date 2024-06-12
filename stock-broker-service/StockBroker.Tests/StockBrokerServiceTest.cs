@@ -1,5 +1,6 @@
 using NSubstitute;
 using NUnit.Framework;
+using static StockBroker.Tests.DateTimeBuilder;
 
 namespace StockBroker.Tests;
 
@@ -24,7 +25,9 @@ public class StockBrokerServiceTest
     [Test]
     public void EmptyOrder()
     {
-        _timeProvider.GetDate().Returns(new DateTime(2019, 08, 15, 14, 45, 0, DateTimeKind.Utc));
+        _timeProvider.GetDate().Returns(CreateDateTime()
+            .WithDate(2019, 08, 15)
+            .WithTime(14, 45).Build());
 
         _stockBrokerService.PlaceOrders("");
 
@@ -34,7 +37,9 @@ public class StockBrokerServiceTest
     [Test]
     public void OrderOneStockFailed()
     {
-        _timeProvider.GetDate().Returns(new DateTime(2009, 06, 18, 13, 45, 0, DateTimeKind.Utc));
+        _timeProvider.GetDate().Returns(CreateDateTime()
+            .WithDate(2009, 06, 18)
+            .WithTime(13, 45).Build());
 
         _stockBrokerOnline
             .When(x => x.Order(Arg.Any<StockOrderDto>()))
@@ -49,7 +54,9 @@ public class StockBrokerServiceTest
     [Test]
     public void OneOrderBuyStockSuccessfully()
     {
-        _timeProvider.GetDate().Returns(new DateTime(2022, 07, 15, 23, 59, 0, DateTimeKind.Utc));
+        _timeProvider.GetDate().Returns(CreateDateTime()
+            .WithDate(2022, 07, 15)
+            .WithTime(23, 59).Build());
 
         _stockBrokerService.PlaceOrders("GOOG 300 829.08 B");
 
