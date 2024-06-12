@@ -14,20 +14,24 @@ public class StocksOrderSummaryFormatter
         _timeProvider = timeProvider;
     }
 
-    public string CreateMessage(StockOrders stockOrder)
+    public string CreateMessage(StockOrders stockOrders)
     {
         var currTime = _timeProvider.GetDate();
-        var priceBuy = stockOrder.CalculateTotalBuyPrice().ToString("0.00", _cultureInfo);
-        var priceSell = stockOrder.CalculateTotalSellPrice().ToString("0.00", _cultureInfo);
+        var priceBuy = stockOrders.CalculateTotalBuyPrice().ToString("0.00", _cultureInfo);
+        var priceSell = stockOrders.CalculateTotalSellPrice().ToString("0.00", _cultureInfo);
 
-        var failedOrders = stockOrder.FailedOrders;
-        string failed = string.Empty;
-
-        if (failedOrders.Any())
-        {
-            failed = $", Failed: {string.Join("", failedOrders.Select(x => x.TickerSymbol))}";
-        }
+        var failed = GenerateFailedMessagePart(stockOrders);
 
         return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € {priceSell}{failed}";
+    }
+
+    private string GenerateFailedMessagePart(StockOrders stockOrders)
+    {
+        if (stockOrders.ThereIsAnyFaultedOrder())
+        {
+            return $", Failed: {string.Join("", stockOrders.FailedOrders.Select(x => x.TickerSymbol))}";
+        }
+
+        return string.Empty;
     }
 }
