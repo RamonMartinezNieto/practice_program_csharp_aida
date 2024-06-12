@@ -6,6 +6,7 @@ namespace StockBroker;
 public class StocksOrderSummaryFormatter
 {
     private readonly TimeProvider _timeProvider;
+    private CultureInfo _cultureInfo = new("en-US");
 
     public StocksOrderSummaryFormatter(TimeProvider timeProvider)
     {
@@ -15,19 +16,20 @@ public class StocksOrderSummaryFormatter
     public string CreateMessage()
     {
         var currTime = _timeProvider.GetDate();
-        return $"{currTime.ToString("MM/dd/yyyy HH:mm", new CultureInfo("en-US"))} Buy: € 0.00, Sell: € 0.00";
+        return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € 0.00, Sell: € 0.00";
     }
 
     public string CreateMessage(StockOrder stockOrder)
     {
         var currTime = _timeProvider.GetDate();
-        var priceBuy = (stockOrder.Quantity * stockOrder.Price).ToString(new CultureInfo("en-US"));
-        return $"{currTime.ToString("MM/dd/yyyy HH:mm", new CultureInfo("en-US"))} Buy: € {priceBuy}, Sell: € 0.00";
+        var priceBuy = (stockOrder.Quantity * stockOrder.Price).ToString(_cultureInfo);
+
+        return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € {priceBuy}, Sell: € 0.00";
     }
 
     public string CreateMessageFail()
     {
         var currTime = _timeProvider.GetDate();
-        return $"{currTime.ToString("MM/dd/yyyy HH:mm", new CultureInfo("en-US"))} Buy: € 0.00, Sell: € 0.00, Failed: GOOG";
+        return $"{currTime.ToString("MM/dd/yyyy HH:mm", _cultureInfo)} Buy: € 0.00, Sell: € 0.00, Failed: GOOG";
     }
 }
