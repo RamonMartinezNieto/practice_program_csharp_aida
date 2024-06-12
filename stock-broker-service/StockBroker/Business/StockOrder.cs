@@ -40,18 +40,14 @@ public class StockOrder
         return new StockOrder(tickerSymbol, quantity, price, type);
     }
 
-
     private static OrderType GetType(string orderItems)
     {
-        if (orderItems.Equals("B"))
+        return orderItems switch
         {
-            return OrderType.Buy;
-        }
-        if (orderItems.Equals("S"))
-        {
-            return OrderType.Sell;
-        }
-        return OrderType.None;
+            "B" => OrderType.Buy,
+            "S" => OrderType.Sell,
+            _ => OrderType.None,
+        };
     }
 
     public decimal CalculateStockOrderPrice()

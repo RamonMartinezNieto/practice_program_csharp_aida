@@ -61,7 +61,6 @@ public class StockBrokerService
         {
             OrderType.Buy => 'B',
             OrderType.Sell => 'S',
-            OrderType.None => ' ',
             _ => ' ',
         };
     }
