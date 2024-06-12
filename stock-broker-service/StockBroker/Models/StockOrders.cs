@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StockBroker.Business;
+namespace StockBroker.Models;
 
 public class StockOrders
 {

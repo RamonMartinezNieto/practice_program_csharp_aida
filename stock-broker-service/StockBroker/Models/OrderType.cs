@@ -1,4 +1,4 @@
-﻿namespace StockBroker.Business;
+﻿namespace StockBroker.Models;
 
 public enum OrderType
 {

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace StockBroker.Business;
+namespace StockBroker.Models;
 
 public class StockOrder
 {
