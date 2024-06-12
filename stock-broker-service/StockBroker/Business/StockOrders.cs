@@ -7,6 +7,7 @@ public class StockOrders
 {
     private readonly List<StockOrder> _orders;
 
+    public IEnumerable<StockOrder> AllOrders => _orders;
     public IEnumerable<StockOrder> BuyOrders => _orders.Where(x => x.Type.Equals(OrderType.Buy));
 
     private StockOrders()
