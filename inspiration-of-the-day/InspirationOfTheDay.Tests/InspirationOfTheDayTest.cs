@@ -1,6 +1,7 @@
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace InspirationOfTheDay.Tests;
@@ -63,9 +64,12 @@ public class InspirationOfTheDayTest
         _quotesService.GetListOfQuotesWith("anyword").Returns(new List<Quote>() { new("anyword uno") });
         _employees.GetAll().ReturnsNull();
 
-        _inspireService.InspireSomeone("anyword");
+        var exception = Assert.Throws<Exception>(() =>
+            _inspireService.InspireSomeone("anyword")
+        );
 
-        _quoteSender.Received(0).Send(Arg.Any<Quote>(), Arg.Any<ContactData>());
+        Assert.That(exception.Message, Is.EqualTo("There are no employees in the service!"));
+        NoSendsReceived();
     }
 
     [Test]
@@ -74,30 +78,46 @@ public class InspirationOfTheDayTest
         _quotesService.GetListOfQuotesWith("anyword").Returns(new List<Quote>() { new("anyword uno") });
         _employees.GetAll().Returns(new List<Employee>());
 
-        _inspireService.InspireSomeone("anyword");
+        var exception = Assert.Throws<Exception>(() =>
+            _inspireService.InspireSomeone("anyword")
+        );
 
-        _quoteSender.Received(0).Send(Arg.Any<Quote>(), Arg.Any<ContactData>());
+        Assert.That(exception.Message, Is.EqualTo("There are no employees in the service!"));
+        NoSendsReceived();
     }
 
     [Test]
-    public void NullQuotesNotCallSend()
+    public void NullQuotesThrowException()
     {
         GivenListOfEmployees();
         _quotesService.GetListOfQuotesWith("eso").ReturnsNull();
 
-        _inspireService.InspireSomeone("eso");
+        var exception = Assert.Throws<Exception>(() =>
+            _inspireService.InspireSomeone("eso")
+        );
 
-        _quoteSender.Received(0).Send(Arg.Any<Quote>(), Arg.Any<ContactData>());
+        Assert.That(exception.Message, Is.EqualTo("Is not possible to retrieve quotes"));
+
+        NoSendsReceived();
     }
 
     [Test]
-    public void EmptyQuotesNotCallSend()
+    public void EmptyQuotesThrowException()
     {
         GivenListOfEmployees();
         _quotesService.GetListOfQuotesWith("eso").Returns(new List<Quote>());
 
-        _inspireService.InspireSomeone("eso");
+        var exception = Assert.Throws<Exception>(() =>
+            _inspireService.InspireSomeone("eso")
+        );
 
+        Assert.That(exception.Message, Is.EqualTo("Is not possible to retrieve quotes"));
+
+        NoSendsReceived();
+    }
+
+    private void NoSendsReceived()
+    {
         _quoteSender.Received(0).Send(Arg.Any<Quote>(), Arg.Any<ContactData>());
     }
 
