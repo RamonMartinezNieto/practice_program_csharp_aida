@@ -26,7 +26,7 @@ public class InspireService
         var contactData = GetContactData();
         var quote = GetQuote(word);
 
-        if (contactData is not null)
+        if (contactData is not null && quote is not null)
         {
             _quoteSender.Send(quote, contactData);
         }
@@ -48,6 +48,12 @@ public class InspireService
     private Quote GetQuote(string word)
     {
         var quotes = _quotesService.GetListOfQuotesWith(word);
+
+        if (quotes == null || !quotes.Any())
+        {
+            return null;
+        }
+
         var indexQuote = _random.GetRandomNumberOf(quotes.Count);
         return quotes[indexQuote];
     }

@@ -79,6 +79,28 @@ public class InspirationOfTheDayTest
         _quoteSender.Received(0).Send(Arg.Any<Quote>(), Arg.Any<ContactData>());
     }
 
+    [Test]
+    public void NullQuotesNotCallSend()
+    {
+        GivenListOfEmployees();
+        _quotesService.GetListOfQuotesWith("eso").ReturnsNull();
+
+        _inspireService.InspireSomeone("eso");
+
+        _quoteSender.Received(0).Send(Arg.Any<Quote>(), Arg.Any<ContactData>());
+    }
+
+    [Test]
+    public void EmptyQuotesNotCallSend()
+    {
+        GivenListOfEmployees();
+        _quotesService.GetListOfQuotesWith("eso").Returns(new List<Quote>());
+
+        _inspireService.InspireSomeone("eso");
+
+        _quoteSender.Received(0).Send(Arg.Any<Quote>(), Arg.Any<ContactData>());
+    }
+
 
     private void ThenReceivedSend(string quote, string telephone)
     {
