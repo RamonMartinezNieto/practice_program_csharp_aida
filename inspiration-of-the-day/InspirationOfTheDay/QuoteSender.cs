@@ -1,8 +1,8 @@
 namespace InspirationOfTheDay;
 
-public interface Sender
+public interface QuoteSender
 {
-    void SendQuote(Quote quote, Employee employee);
+    void Send(Quote quote, Employee employee);
 }
 
 public record Quote
