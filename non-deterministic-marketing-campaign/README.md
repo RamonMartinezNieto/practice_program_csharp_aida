@@ -18,8 +18,8 @@ Changing code without test is risky, so we want to
 Task
 ----
 
-The given code collects the necessary user confirmations
-during a purchase in our online shop. The main logic is in `Checkout`.
+The given `MarketingCampaign` controls the marketing actions which
+run on our online shop. During campaigns we e.g. offer discounts.
 
-* Break the dependencies you need to bring `Checkout` under test, so that you can fix the existing test, then write more tests if you have time.
-* There is an existing `CheckoutTest` with a first test case which might or might not work.
+* Break the dependencies you need to bring `MarketingCampaign` under test, so that you can fix the existing tests.
+* There is an existing `MarketingCampaignTest` with a first test case which might or might not work.
