@@ -27,14 +27,8 @@ public class InspireService
         var contactData = GetContactData();
         var quote = GetQuote(word);
 
-        if (IsDataValid(contactData, quote))
-        {
-            _quoteSender.Send(quote, contactData);
-        }
+        _quoteSender.Send(quote, contactData);
     }
-
-    private static bool IsDataValid(ContactData contactData, Quote quote)
-        => contactData is not null && quote is not null;
 
     private ContactData GetContactData()
     {
