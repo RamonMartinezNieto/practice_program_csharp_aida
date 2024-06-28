@@ -5,17 +5,26 @@ namespace InspirationOfTheDay.Tests;
 
 public class InspirationOfTheDayTest
 {
+    private QuotesService _quotesService;
+    private Sender _sender;
+    private RandomWrapper _random;
+    private InspireService _inspireService;
+
+    [SetUp]
+    public void SetUpt()
+    {
+        _quotesService = Substitute.For<QuotesService>();
+        _sender = Substitute.For<Sender>();
+        _random = Substitute.For<RandomWrapper>();
+        _inspireService = new(_quotesService, _sender, _random);
+    }
+
     [Test]
     public void SendInspirationToEmployee()
     {
-        QuotesService quotesService = Substitute.For<QuotesService>();
-        Sender sender = Substitute.For<Sender>();
-        RandomWrapper random = Substitute.For<RandomWrapper>();
-        InspireService inspireService = new(quotesService, sender, random);
+        _inspireService.InspireSomeone("pato");
 
-        inspireService.InspireSomeone("pato");
-
-        sender.Received(1).SendInspiration("pato uno", new Employee("Ramon"));
+        _sender.Received(1).SendInspiration("pato uno", new Employee("Ramon"));
     }
 }
 
