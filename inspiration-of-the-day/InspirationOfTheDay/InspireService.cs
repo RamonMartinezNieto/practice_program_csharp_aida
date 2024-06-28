@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace InspirationOfTheDay;
@@ -39,9 +40,10 @@ public class InspireService
             throw new Exception("There are no employees in the service!");
         }
 
-        var indexEmployee = _random.GetRandomNumberOf(employees.Count);
+        var indexEmployee = _random.GetRandomNumberOf(MaxNumberOf(employees));
         return employees[indexEmployee].GetContactData();
     }
+
 
     private Quote GetQuote(string word)
     {
@@ -52,7 +54,12 @@ public class InspireService
             throw new Exception("Is not possible to retrieve quotes");
         }
 
-        var indexQuote = _random.GetRandomNumberOf(quotes.Count);
+        var indexQuote = _random.GetRandomNumberOf(MaxNumberOf(quotes));
         return quotes[indexQuote];
+    }
+
+    private static int MaxNumberOf<T>(List<T> list)
+    {
+        return list.Count - 1;
     }
 }

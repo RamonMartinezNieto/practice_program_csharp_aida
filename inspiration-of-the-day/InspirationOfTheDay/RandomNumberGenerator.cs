@@ -2,5 +2,5 @@ namespace InspirationOfTheDay;
 
 public interface RandomNumberGenerator
 {
-    int GetRandomNumberOf(int numberOfElements);
+    int GetRandomNumberOf(int maxNumber);
 }

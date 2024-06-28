@@ -39,7 +39,7 @@ public class InspirationOfTheDayTest
     {
         GivenListOfEmployees();
         _quotesService.GetListOfQuotesWith("superman").Returns(new List<Quote>() { new("superman uno") });
-        _random.GetRandomNumberOf(2).Returns(1);
+        _random.GetRandomNumberOf(1).Returns(1);
 
         _inspireService.InspireSomeone("superman");
 
