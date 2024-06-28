@@ -1,5 +1,6 @@
 using NSubstitute;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace InspirationOfTheDay.Tests;
 
@@ -22,8 +23,40 @@ public class InspirationOfTheDayTest
     [Test]
     public void SendInspirationToEmployee()
     {
+        var managerWord = "pato";
+
+        var quotes = StubListOfQuotes();
+        _random.SelectOneRandomFrom(quotes).Returns(quotes[0]);
+
+        _inspireService.InspireSomeone(managerWord);
+
+        _sender.Received(1).SendInspiration(
+            Arg.Is<string>(x => x.Contains(managerWord)),
+            new Employee("Ramon"));
+
+    }
+
+    [Test]
+    public void SelectRandomQuoteFromListReceived()
+    {
+        var quotes = StubListOfQuotes();
+        _random.SelectOneRandomFrom(quotes).Returns(quotes[1]);
+
         _inspireService.InspireSomeone("pato");
 
-        _sender.Received(1).SendInspiration("pato uno", new Employee("Ramon"));
+        _sender.Received(1).SendInspiration("pato dos", new Employee("Ramon"));
+    }
+
+    private List<string> StubListOfQuotes()
+    {
+        var quotes = new List<string>
+        {
+            "pato uno",
+            "pato dos",
+            "pato tres"
+        };
+
+        _quotesService.GetListOfQuotesWith("pato").Returns(quotes);
+        return quotes;
     }
 }

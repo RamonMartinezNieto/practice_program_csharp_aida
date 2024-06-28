@@ -15,6 +15,10 @@ public class InspireService
 
     public void InspireSomeone(string word)
     {
-        _sender.SendInspiration("pato uno", new Employee("Ramon"));
+        var quotes = _quotesService.GetListOfQuotesWith(word);
+
+        string quote = _random.SelectOneRandomFrom(quotes);
+
+        _sender.SendInspiration(quote, new Employee("Ramon"));
     }
 }

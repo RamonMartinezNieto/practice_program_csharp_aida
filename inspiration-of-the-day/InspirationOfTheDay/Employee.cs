@@ -1,6 +1,6 @@
 namespace InspirationOfTheDay;
 
-public record class Employee(string Name)
+public record Employee(string Name)
 {
     public string Name { get; init; }
 }
