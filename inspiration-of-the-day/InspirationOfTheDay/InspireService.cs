@@ -60,13 +60,9 @@ public class InspireService
 
 
     private int GetNumberOf<T>(List<T> list)
-    {
-        return _random.GetRandomNumberOf(MaxNumberOf(list));
-    }
-
+        => _random.GetRandomNumberOf(MaxNumberOf(list));
 
     private static int MaxNumberOf<T>(List<T> list)
-    {
-        return list.Count - 1;
-    }
+        => list.Count - 1;
+
 }
