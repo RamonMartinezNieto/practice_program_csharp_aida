@@ -4,5 +4,5 @@ namespace InspirationOfTheDay;
 
 public interface QuotesService
 {
-    List<string> GetListOfQuotesWith(string word);
+    List<Quote> GetListOfQuotesWith(string word);
 }

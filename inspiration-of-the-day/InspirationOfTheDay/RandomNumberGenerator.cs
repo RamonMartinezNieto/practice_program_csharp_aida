@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
 namespace InspirationOfTheDay;
 
-public interface RandomWrapper
+public interface RandomNumberGenerator
 {
-    string SelectOneRandomFrom(List<string> sentences);
+    int GetRandomNumberOf(int numberOfElements);
 }

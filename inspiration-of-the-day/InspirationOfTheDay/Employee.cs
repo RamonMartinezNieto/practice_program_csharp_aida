@@ -1,6 +1,16 @@
 namespace InspirationOfTheDay;
 
-public record Employee(string Name)
+public class Employee
 {
-    public string Name { get; init; }
+    private readonly string _telephone;
+
+    public Employee(string telephone)
+    {
+        _telephone = telephone;
+    }
+
+    public ContactData GetContactData()
+    {
+        return new ContactData(_telephone);
+    }
 }
