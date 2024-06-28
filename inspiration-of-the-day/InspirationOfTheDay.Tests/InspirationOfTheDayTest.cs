@@ -1,4 +1,5 @@
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
 using System.Collections.Generic;
 
@@ -55,6 +56,29 @@ public class InspirationOfTheDayTest
 
         ThenReceivedSend("superman dos", "888");
     }
+
+    [Test]
+    public void NullEmployeesNotCallSend()
+    {
+        _quotesService.GetListOfQuotesWith("anyword").Returns(new List<Quote>() { new("anyword uno") });
+        _employees.GetAll().ReturnsNull();
+
+        _inspireService.InspireSomeone("anyword");
+
+        _quoteSender.Received(0).Send(Arg.Any<Quote>(), Arg.Any<ContactData>());
+    }
+
+    [Test]
+    public void EmptyEmployeesNotCallSend()
+    {
+        _quotesService.GetListOfQuotesWith("anyword").Returns(new List<Quote>() { new("anyword uno") });
+        _employees.GetAll().Returns(new List<Employee>());
+
+        _inspireService.InspireSomeone("anyword");
+
+        _quoteSender.Received(0).Send(Arg.Any<Quote>(), Arg.Any<ContactData>());
+    }
+
 
     private void ThenReceivedSend(string quote, string telephone)
     {

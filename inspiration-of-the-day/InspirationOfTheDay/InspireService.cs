@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace InspirationOfTheDay;
 
 public class InspireService
@@ -21,12 +23,24 @@ public class InspireService
 
     public void InspireSomeone(string word)
     {
-        _quoteSender.Send(GetQuote(word), GetContactData());
+        var contactData = GetContactData();
+        var quote = GetQuote(word);
+
+        if (contactData is not null)
+        {
+            _quoteSender.Send(quote, contactData);
+        }
     }
 
     private ContactData GetContactData()
     {
         var employees = _employees.GetAll();
+
+        if (employees == null || !employees.Any())
+        {
+            return null;
+        }
+
         var indexEmployee = _random.GetRandomNumberOf(employees.Count);
         return employees[indexEmployee].GetContactData();
     }
