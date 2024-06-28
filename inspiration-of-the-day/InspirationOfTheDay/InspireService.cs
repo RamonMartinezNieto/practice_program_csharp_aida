@@ -35,7 +35,7 @@ public class InspireService
     {
         var employees = _employees.GetAll();
 
-        if (employees?.Any() != true)
+        if (ThereAreElementsInTheList(employees))
         {
             throw new Exception("There are no employees in the service!");
         }
@@ -49,7 +49,7 @@ public class InspireService
     {
         var quotes = _quotesService.GetListOfQuotesWith(word);
 
-        if (quotes?.Any() != true)
+        if (ThereAreElementsInTheList(quotes))
         {
             throw new Exception("Is not possible to retrieve quotes");
         }
@@ -58,6 +58,8 @@ public class InspireService
         return quotes[indexQuote];
     }
 
+    private static bool ThereAreElementsInTheList<T>(List<T> list)
+        => list?.Any() != true;
 
     private int GetNumberOf<T>(List<T> list)
         => _random.GetRandomNumberOf(MaxNumberOf(list));
