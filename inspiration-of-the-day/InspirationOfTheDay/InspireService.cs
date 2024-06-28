@@ -40,7 +40,7 @@ public class InspireService
             throw new Exception("There are no employees in the service!");
         }
 
-        var indexEmployee = _random.GetRandomNumberOf(MaxNumberOf(employees));
+        var indexEmployee = GetNumberOf(employees);
         return employees[indexEmployee].GetContactData();
     }
 
@@ -54,9 +54,16 @@ public class InspireService
             throw new Exception("Is not possible to retrieve quotes");
         }
 
-        var indexQuote = _random.GetRandomNumberOf(MaxNumberOf(quotes));
+        var indexQuote = GetNumberOf(quotes);
         return quotes[indexQuote];
     }
+
+
+    private int GetNumberOf<T>(List<T> list)
+    {
+        return _random.GetRandomNumberOf(MaxNumberOf(list));
+    }
+
 
     private static int MaxNumberOf<T>(List<T> list)
     {
