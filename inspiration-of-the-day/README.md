@@ -33,3 +33,11 @@ The entry point of the service only has this public method: `void InspireSomeone
 	* Seleccion: 'pato uno'
 	* Seleccion empleado: pepe
 	* Se envía correo a pepe con pato uno
+
+
+	# Casos 0 : 
+	# null or empty quotes
+	# null or empty employees 
+	
+	# Opps
+	# throw exception quotes service

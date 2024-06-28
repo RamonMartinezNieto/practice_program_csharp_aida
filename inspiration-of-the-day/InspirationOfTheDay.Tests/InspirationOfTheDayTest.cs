@@ -24,39 +24,48 @@ public class InspirationOfTheDayTest
     public void SendInspirationToEmployee()
     {
         var managerWord = "pato";
-
-        var quotes = StubListOfQuotes();
-        _random.SelectOneRandomFrom(quotes).Returns(quotes[0]);
+        StubSelectRandomQuote(managerWord, 0);
 
         _inspireService.InspireSomeone(managerWord);
 
-        _sender.Received(1).SendInspiration(
-            Arg.Is<string>(x => x.Contains(managerWord)),
-            new Employee("Ramon"));
-
+        CheckSendInspiration($"{managerWord} uno", new Employee("Ramon"));
     }
+
 
     [Test]
     public void SelectRandomQuoteFromListReceived()
     {
-        var quotes = StubListOfQuotes();
-        _random.SelectOneRandomFrom(quotes).Returns(quotes[1]);
+        var managerWord = "superman";
+        StubSelectRandomQuote(managerWord, 1);
 
-        _inspireService.InspireSomeone("pato");
+        _inspireService.InspireSomeone(managerWord);
 
-        _sender.Received(1).SendInspiration("pato dos", new Employee("Ramon"));
+        CheckSendInspiration($"{managerWord} dos", new Employee("Ramon"));
     }
 
-    private List<string> StubListOfQuotes()
+    private void CheckSendInspiration(string inspiration, Employee employee)
+    {
+        _sender.Received(1).SendInspiration(Arg.Any<string>(), Arg.Any<Employee>());
+        _sender.Received(1).SendInspiration(inspiration, employee);
+    }
+
+
+    private void StubSelectRandomQuote(string word, int index)
+    {
+        var quotes = StubListOfQuotes(word);
+        _random.SelectOneRandomFrom(quotes).Returns(quotes[index]);
+    }
+
+    private List<string> StubListOfQuotes(string managerWord)
     {
         var quotes = new List<string>
         {
-            "pato uno",
-            "pato dos",
-            "pato tres"
+            $"{managerWord} uno",
+            $"{managerWord} dos",
+            $"{managerWord} tres"
         };
 
-        _quotesService.GetListOfQuotesWith("pato").Returns(quotes);
+        _quotesService.GetListOfQuotesWith(managerWord).Returns(quotes);
         return quotes;
     }
 }
